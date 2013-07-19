@@ -39,6 +39,7 @@ class TenTenDataDotCom{
 
 		$response = $this->request($api_url, $headers);
 		$xml = simplexml_load_string($response);
+		var_dump($xml);
 		
 		if((string)$xml->rc == '0'){
 			$session = array(
@@ -91,7 +92,7 @@ class TenTenDataDotCom{
 
 		$headers = array();
 		$headers[] = "Content-Type: text/xml";
-		$headers[] = "Content-Length: 0";
+		//$headers[] = "Content-Length: 0";
 		$headers[] = "Connection: close";
 		
 		$api_url = $this->generate_api_url();
@@ -107,16 +108,16 @@ class TenTenDataDotCom{
 	
 	//refresh the authentication
 	private function refresh_authentication(){
-		if(isset($_SESSION['tenten']['is_loggedin']) && $_SESSION['tenten']['is_loggedin'] == true){
-			$this->uid = $this->get_session('uid');
-			$this->sid = $this->get_session('sid');
-			$this->pswd = $this->get_session('pswd');
-			$this->encrypted_pswd = $this->get_session('encrypted_pswd');
-			$this->apiversion = '3';
-		}
-		else{
+		if(!$_SESSION['tenten']['is_loggedin']){
 			$this->login();
 		}
+		
+		$this->uid = $this->get_session('uid');
+		$this->sid = $this->get_session('sid');
+		$this->pswd = $this->get_session('pswd');
+		$this->encrypted_pswd = $this->get_session('encrypted_pswd');
+		$this->apiversion = '3';
+		
 	}
 	
 	
@@ -162,6 +163,10 @@ class TenTenDataDotCom{
 	
 	function get_session($key){
 		return $_SESSION['tenten'][$key];
+	}
+	
+	function unset_session(){
+		unset($_SESSION['tenten']);
 	}
 	
 }
