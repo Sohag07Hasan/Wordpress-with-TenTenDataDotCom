@@ -21,7 +21,9 @@ class TenTenDataDotCom{
 		$session['uid'] = $this->uid = $uid;
 		$session['pswd'] = $this->pswd = $pswd;
 		$session['apiversion'] = $this->apiversion = '3';
-
+		
+		//var_dump($session);
+		
 		$this->set_session($session);
 	}
 	
@@ -39,7 +41,7 @@ class TenTenDataDotCom{
 
 		$response = $this->request($api_url, $headers);
 		$xml = simplexml_load_string($response);
-		var_dump($xml);
+		//var_dump($xml);
 		
 		if((string)$xml->rc == '0'){
 			$session = array(
@@ -78,6 +80,8 @@ class TenTenDataDotCom{
 			$parameters['pswd'] = $this->encrypted_pswd;
 		}
 		
+		//var_dump($parameters);
+		
 		return self::api_end_point . '?' . http_build_query($parameters);
 	}
 	
@@ -96,8 +100,10 @@ class TenTenDataDotCom{
 		$headers[] = "Connection: close";
 		
 		$api_url = $this->generate_api_url();
+		
+		//var_dump($api_url);
 
-		$fields = '<in><group>mhasan_mhasan_1010</group></in>';
+		$fields = '<in></in>';
 		
 		$response = $this->request($api_url, $headers, $fields);
 		$xml = simplexml_load_string($response);
@@ -112,11 +118,18 @@ class TenTenDataDotCom{
 			$this->login();
 		}
 		
+		//var_dump($_SESSION);
+		
+		
+		
 		$this->uid = $this->get_session('uid');
 		$this->sid = $this->get_session('sid');
 		$this->pswd = $this->get_session('pswd');
 		$this->encrypted_pswd = $this->get_session('encrypted_pswd');
 		$this->apiversion = '3';
+		
+		//var_dump($this->uid);
+		//die();
 		
 	}
 	
