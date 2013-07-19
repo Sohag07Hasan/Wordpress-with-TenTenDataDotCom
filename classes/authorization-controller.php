@@ -11,8 +11,10 @@ class AuthorizationController{
 	
 	static function api_check(){
 		$tenten = new TenTenDataDotCom('mhasan', '1010data123');
-		$tenten->login();
-		exit;
+		
+		//$tenten->login();
+		
+		$membership = $tenten->get_membership();
 	}
 	
 	/**

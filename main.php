@@ -8,8 +8,11 @@
 define("WP1010DATA_DIR", dirname(__FILE__) . '/');
 define("WP1010DATA_URL", plugins_url('/', __FILE__));
 
+session_start();
 
+//data api
+include WP1010DATA_DIR . 'classes/1010api.php';
+
+//controlling classes
 include WP1010DATA_DIR . 'classes/authorization-controller.php';
 AuthorizationController::init();
-
-include WP1010DATA_DIR . 'classes/1010api.php';
