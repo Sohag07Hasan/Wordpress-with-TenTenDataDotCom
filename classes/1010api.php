@@ -17,6 +17,7 @@ class TenTenDataDotCom{
 	
 	//initiator function
 	function __construct($uid, $pswd){
+		
 		$session = array();
 		$session['uid'] = $this->uid = $uid;
 		$session['pswd'] = $this->pswd = $pswd;
@@ -25,6 +26,16 @@ class TenTenDataDotCom{
 		//var_dump($session);
 		
 		$this->set_session($session);
+		
+		
+		//$this->set('apiversion', '3');
+	}
+	
+	
+	//function set
+	function set($variable, $value){
+		$this->$variable = $value;
+		$this->set_session(array($variable=>$value));
 	}
 	
 	
@@ -106,10 +117,10 @@ class TenTenDataDotCom{
 		$fields = '<in></in>';
 		
 		$response = $this->request($api_url, $headers, $fields);
+				
 		$xml = simplexml_load_string($response);
-		var_dump($xml);
-		die();
-	
+		
+		return $xml;	
 	}
 	
 	//refresh the authentication
@@ -159,7 +170,7 @@ class TenTenDataDotCom{
 		
 		curl_close($ch);
 
-		var_dump($status);
+		//var_dump($status);
 		
 		return $response;
 	}
