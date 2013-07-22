@@ -11,7 +11,7 @@
 			</tr>
 			<tr>
 				<td><label for="tenten_pswd"> Password</label></td>
-				<td><input type="text" name="tenten[pswd]" id="tenten_pswd" ></td>
+				<td><input type="password" name="tenten[pswd]" id="tenten_pswd" ></td>
 			</tr>
 		</table>
 	

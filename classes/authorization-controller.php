@@ -12,7 +12,7 @@ class AuthorizationController{
 		
 		add_filter('the_content', array(get_class(), 'content_checking'));
 		add_filter('the_title', array(get_class(), 'title_checking'));
-		add_action('wp_enqueue_scripts', array(get_class(), 'enqueue_scripts'));
+		//add_action('wp_enqueue_scripts', array(get_class(), 'enqueue_scripts'));
 		
 		//form submitted
 		add_action('init', array(get_class(), 'form_submitted'), 0);
@@ -175,7 +175,14 @@ class AuthorizationController{
 		if(empty($groups)){
 			$membership = self::$tenten->get_membership();
 			if((string) $membership->rc == '0'){
-				$groups = (string)$membership->user[0]->attributes()['groups'];
+				$retrieved_values = array();
+				foreach($membership->user[0]->attributes() as $key => $value){
+					$retrieved_values[$key] = $value;
+				}
+				//$groups = (string) $membership->user[0]->attributes()['groups'];
+				
+				$groups = $retrieved_values['groups'];
+							
 				$groups = explode(' ', $groups);
 				self::set_session(array('groups' => $groups));
 			}
